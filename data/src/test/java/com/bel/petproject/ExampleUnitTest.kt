@@ -1,4 +1,4 @@
-package com.bel.data
+package com.bel.petproject
 
 import org.junit.Test
 
