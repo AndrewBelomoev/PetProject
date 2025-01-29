@@ -1,4 +1,4 @@
-package com.bel.petproject.data.model
+package com.bel.petproject.data.models
 
 data class CreationRequestDTO(
     val id: Long,
