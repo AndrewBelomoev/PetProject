@@ -8,3 +8,4 @@ class GetCreatedImagesByIDUseCase(private val repository: ImagesRemoteRepository
         return repository.getCreatedImagesByID(id)
     }
 }
+

@@ -1,21 +1,23 @@
 package com.bel.petproject.data.models
 
+import com.bel.petproject.models.creationResponse.Image
+
 data class CreationResponseDTO(
     val id: Long,
     val status: String,
     val prompt: String,
     val negativePrompt: String,
-    val model: String,
-    val width: Int,
-    val height: Int,
+    val width: Long,
+    val height: Long,
     val highResolution: Boolean,
-    val steps: Int,
     val seed: Long,
-    val initialImage: Any,
-    val initialImageMode: Any,
-    val initialImageStrength: Any,
+    val steps: Long,
+    val model: String,
+    val initialImage: Any?,
+    val initialImageMode: Any?,
+    val initialImageStrength: Any?,
     val createdAt: String,
     val updatedAt: String,
-    val images: List<ImageDTO>,
-    val expired: Boolean
+    val images: List<Image>,
+    val expired: Boolean,
 )
