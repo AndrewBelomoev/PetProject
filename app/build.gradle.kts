@@ -51,7 +51,12 @@ android {
 
 dependencies {
 
+    implementation(project(":data"))
     implementation(project(":domain"))
+
+    implementation ("io.insert-koin:koin-android:3.3.0")
+    implementation ("io.insert-koin:koin-androidx-navigation:3.3.0")
+    implementation ("io.insert-koin:koin-androidx-compose:3.3.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -61,6 +66,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

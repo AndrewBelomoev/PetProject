@@ -12,7 +12,7 @@ interface StarryAiAPI {
     @POST("creations/")
     suspend fun newCreation(@Body request: CreationRequestDTO): CreationResponseDTO
 
-    @GET("creations/{id}")
-    suspend fun getCreationByID(@Path("id") id: Long): CreationResponseDTO
+    @GET("creations/{creation_id}")
+    suspend fun getCreationByID(@Path("creation_id") id: Long): CreationResponseDTO
 
 }
