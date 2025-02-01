@@ -9,45 +9,27 @@ import com.bel.petproject.models.creationResponse.Image
 
 fun CreationRequestDTO.toDomainModel(): CreationRequest {
     return CreationRequest(
-        id = id,
-        status = status,
+        model = model,
+        aspectRatio = aspectRatio,
+        highResolution = highResolution,
+        images = images,
+        steps = steps,
         prompt = prompt,
         negativePrompt = negativePrompt,
-        width = width,
-        height = height,
-        highResolution = highResolution,
-        seed = seed,
-        steps = steps,
-        model = model,
-        initialImage = initialImage,
-        initialImageMode = initialImageMode,
-        initialImageStrength = initialImageStrength,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-        images = images.map { it.toDomainModel() },
-        expired = expired
+        seed = seed
     )
 }
 
 fun CreationRequest.toDTOModel(): CreationRequestDTO {
     return CreationRequestDTO(
-        id = id,
-        status = status,
+        model = model,
+        aspectRatio = aspectRatio,
+        highResolution = highResolution,
+        images = images,
+        steps = steps,
         prompt = prompt,
         negativePrompt = negativePrompt,
-        model = model,
-        width = width,
-        height = height,
-        highResolution = highResolution,
-        steps = steps,
-        seed = seed,
-        initialImage = initialImage,
-        initialImageMode = initialImageMode,
-        initialImageStrength = initialImageStrength,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-        images = images.map { it.toDTOModel() },
-        expired = expired
+        seed = seed
     )
 }
 

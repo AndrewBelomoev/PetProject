@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,11 +28,11 @@ fun DetailsScreen(navController: NavController) {
     val viewModel: DetailsViewModel = koinViewModel()
 
 
-    viewModel.fetchImagesByID(109150)
+    viewModel.fetchImagesByID(109583)
 
 
     val creationResponse by viewModel.creationResponse.collectAsState()
-    val imageUrls = creationResponse?.images?.map { it.url } ?: listOf("Empty")
+    val imageUrls = creationResponse?.images
 
     val scrollState = rememberScrollState()
     Column(
@@ -42,22 +42,32 @@ fun DetailsScreen(navController: NavController) {
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.Center
     ) {
-        imageUrls.forEach { url ->
-            Text(
-                text = url,
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                modifier = Modifier.fillMaxWidth()
-            )
+        if (imageUrls != null) {
+            if (imageUrls.isEmpty()) {
+                Text(
+                    text = "Изображения не найдены",
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 16.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else {
+                imageUrls.forEach { url ->
+                    SelectionContainer {
+                        Text(
+                            text = url.url,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 16.sp,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
+            }
         }
     }
-
 }
 
 @Preview
 @Composable
 fun DetailsScreenPreview() {
-    DetailsScreen(
-        navController = rememberNavController()
-    )
+    DetailsScreen(navController = rememberNavController())
 }
