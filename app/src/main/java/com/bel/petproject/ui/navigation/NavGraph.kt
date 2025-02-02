@@ -18,15 +18,15 @@ fun SetupNavGraph(
         startDestination = Screen.Home.route
     ) {
         composable(route = Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
         composable(route = Screen.Details.route) {
-            DetailsScreen(navController = navController)
+            DetailsScreen()
         }
         composable(route = Screen.Settings.route) {
             SettingsScreen(navController = navController)
         }
-        composable(route =Screen.MyScreen.route ) {
+        composable(route = Screen.MyScreen.route) {
             MyAppScreen(navController = navController)
         }
     }

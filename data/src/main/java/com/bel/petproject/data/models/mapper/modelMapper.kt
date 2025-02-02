@@ -1,14 +1,14 @@
 package com.bel.petproject.data.models.mapper
 
-import com.bel.petproject.data.models.CreationRequestDTO
-import com.bel.petproject.data.models.CreationResponseDTO
+import com.bel.petproject.data.models.ImageGenerationParametersDTO
+import com.bel.petproject.data.models.GeneratedImageDetailsDTO
 import com.bel.petproject.data.models.ImageDTO
-import com.bel.petproject.models.creationResponse.CreationRequest
-import com.bel.petproject.models.creationResponse.CreationResponse
+import com.bel.petproject.models.creationResponse.ImageGenerationParameters
+import com.bel.petproject.models.creationResponse.GeneratedImageDetails
 import com.bel.petproject.models.creationResponse.Image
 
-fun CreationRequestDTO.toDomainModel(): CreationRequest {
-    return CreationRequest(
+fun ImageGenerationParametersDTO.toDomainModel(): ImageGenerationParameters {
+    return ImageGenerationParameters(
         model = model,
         aspectRatio = aspectRatio,
         highResolution = highResolution,
@@ -20,8 +20,8 @@ fun CreationRequestDTO.toDomainModel(): CreationRequest {
     )
 }
 
-fun CreationRequest.toDTOModel(): CreationRequestDTO {
-    return CreationRequestDTO(
+fun ImageGenerationParameters.toDTOModel(): ImageGenerationParametersDTO {
+    return ImageGenerationParametersDTO(
         model = model,
         aspectRatio = aspectRatio,
         highResolution = highResolution,
@@ -33,8 +33,8 @@ fun CreationRequest.toDTOModel(): CreationRequestDTO {
     )
 }
 
-fun CreationResponseDTO.toDomainModel(): CreationResponse {
-    return CreationResponse(
+fun GeneratedImageDetailsDTO.toDomainModel(): GeneratedImageDetails {
+    return GeneratedImageDetails(
         id = id,
         status = status,
         prompt = prompt,

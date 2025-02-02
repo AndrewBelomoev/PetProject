@@ -1,6 +1,6 @@
-package com.bel.petproject.models.creationResponse
+package com.bel.petproject.data.models
 
-data class CreationRequest(
+data class ImageGenerationParametersDTO(
     val model: String? = null,
     val aspectRatio: String? = null,
     val highResolution: Boolean? = null,

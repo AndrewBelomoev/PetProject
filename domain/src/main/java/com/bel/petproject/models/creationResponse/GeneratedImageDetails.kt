@@ -1,6 +1,6 @@
 package com.bel.petproject.models.creationResponse
 
-data class CreationResponse(
+data class GeneratedImageDetails(
     val id: Long,
     val status: String? = null,
     val prompt: String? = null,
@@ -17,5 +17,5 @@ data class CreationResponse(
     val createdAt: String? = null,
     val updatedAt: String? = null,
     val images: List<Image>,
-    val expired: Boolean? = null,
+    val expired: Boolean? = null
 )
