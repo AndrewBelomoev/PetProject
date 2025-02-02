@@ -2,7 +2,7 @@ package com.bel.petproject.data.models
 
 import com.bel.petproject.models.creationResponse.Image
 
-data class CreationResponseDTO(
+data class GeneratedImageDetailsDTO(
     val id: Long,
     val status: String,
     val prompt: String,
