@@ -29,7 +29,7 @@ internal val networkModule = module {
 
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(logging)
-            .addInterceptor(AuthInterceptor("0QzFVORT3fBNvHprQ_ZN7ocMyHbkHw"))
+            .addInterceptor(AuthInterceptor("V_adz7MlksIbNYUyKMvulrJNB7w41Q"))
             .build()
 
         Retrofit.Builder()

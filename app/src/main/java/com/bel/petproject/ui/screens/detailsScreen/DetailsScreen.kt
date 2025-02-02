@@ -28,7 +28,7 @@ fun DetailsScreen(navController: NavController) {
     val viewModel: DetailsViewModel = koinViewModel()
 
 
-    viewModel.fetchImagesByID(109583)
+    viewModel.fetchImagesByID(109713)
 
 
     val creationResponse by viewModel.creationResponse.collectAsState()
