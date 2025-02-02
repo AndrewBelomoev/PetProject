@@ -1,5 +1,6 @@
 package com.bel.petproject.data.repositories
 
+import android.util.Log
 import com.bel.petproject.data.api.starryAiAPI.StarryAiAPI
 import com.bel.petproject.data.models.mapper.toDTOModel
 import com.bel.petproject.data.models.mapper.toDomainModel
@@ -10,10 +11,14 @@ class ImagesRemoteReposImpl(private val api: StarryAiAPI) : ImagesRemoteReposito
 
     override suspend fun createNewImages(request: CreationRequest) = runCatching {
         api.newCreation(request = request.toDTOModel()).toDomainModel()
+    }.onFailure {
+        Log.e("API ERROR", it.message ?: "Unknown error")
     }
 
     override suspend fun getCreatedImagesByID(id: Long) = runCatching {
         api.getCreationByID(id = id).toDomainModel()
+    }.onFailure {
+        Log.e("API ERROR", it.message ?: "Unknown error")
     }
 
 }
