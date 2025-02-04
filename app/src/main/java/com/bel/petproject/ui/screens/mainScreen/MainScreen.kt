@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -21,7 +20,6 @@ import com.bel.petproject.ui.navigation.SetupNavGraph
 private val bottomNavItems = listOf(
     BottomNavItem("Home", Icons.Default.Home, Screen.Home.route),
     BottomNavItem("MyScreen", Icons.Default.AddCircle, Screen.MyScreen.route),
-    BottomNavItem("Details", Icons.Default.Person, Screen.Details.route),
     BottomNavItem("Settings", Icons.Default.Settings, Screen.Settings.route)
 )
 

@@ -13,16 +13,19 @@ class HomeViewModel(
     private val creteNewImagesUseCase: CreteNewImagesUseCase,
     private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase
 ) : ViewModel() {
-    private val _generatedImageDetails = MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
+    private val _generatedImageDetails =
+        MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
     fun loadGeneratedImageDetails(id: Long) {
-        viewModelScope.launch {
-            _generatedImageDetails.value = LceState.Loading
-            getCreatedImagesByIDUseCase.invoke(id).onSuccess {
-                _generatedImageDetails.value = LceState.Content(it)
-            }.onFailure {
-                _generatedImageDetails.value = LceState.Error(it)
+        if (_generatedImageDetails.value !is LceState.Content) {
+            viewModelScope.launch {
+                _generatedImageDetails.value = LceState.Loading
+                getCreatedImagesByIDUseCase.invoke(id).onSuccess {
+                    _generatedImageDetails.value = LceState.Content(it)
+                }.onFailure {
+                    _generatedImageDetails.value = LceState.Error(it)
+                }
             }
         }
     }

@@ -11,11 +11,11 @@ data class GeneratedImageDetails(
     val seed: Long? = null,
     val steps: Long? = null,
     val model: String? = null,
-    val initialImage: Any?,
-    val initialImageMode: Any?,
-    val initialImageStrength: Any?,
+    val initialImage: Any? = null,
+    val initialImageMode: Any? = null,
+    val initialImageStrength: Any? = null,
     val createdAt: String? = null,
     val updatedAt: String? = null,
-    val images: List<Image>,
+    val images: List<Image>? = null,
     val expired: Boolean? = null
 )

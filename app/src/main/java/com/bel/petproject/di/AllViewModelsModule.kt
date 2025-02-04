@@ -9,5 +9,6 @@ import com.bel.petproject.ui.screens.SharedViewModel
 val allViewModelsModule = module {
     viewModelOf(::DetailsViewModel)
     viewModelOf(::HomeViewModel)
-    viewModelOf(::SharedViewModel)
+//    viewModelOf(::SharedViewModel)
+    single { SharedViewModel() }
 }
