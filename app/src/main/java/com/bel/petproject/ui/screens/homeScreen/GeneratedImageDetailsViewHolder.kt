@@ -31,7 +31,7 @@ import com.bel.petproject.models.creationResponse.Image
 
 @Composable
 fun CreationCardViewHolder(
-    creation: GeneratedImageDetails,
+    generatedImageDetails: GeneratedImageDetails,
     onCardClick: (GeneratedImageDetails) -> Unit,
     onImageClick: (Image) -> Unit,
     onImageLongClick: (Image) -> Unit,
@@ -40,25 +40,31 @@ fun CreationCardViewHolder(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onCardClick(creation) }
+            .clickable { onCardClick(generatedImageDetails) }
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
 
             Text(
-                text = "Prompt: ${creation.prompt}",
+                text = "Prompt: ${generatedImageDetails.prompt}",
                 Modifier.clickable { },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "Negative Prompt: ${creation.negativePrompt}",
+                text = "Negative Prompt: ${generatedImageDetails.negativePrompt}",
+                Modifier.clickable { },
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = "Status: ${generatedImageDetails.status}",
                 Modifier.clickable { },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
             LazyColumn(modifier = Modifier.weight(1f)) {
-                items(creation.images) { image ->
+                items(generatedImageDetails.images ?: listOf(Image(id = 1, url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"))) { image ->
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -105,7 +111,7 @@ fun CreationCardViewHolder(
 @Composable
 fun CreationCardPreview() {
     CreationCardViewHolder(
-        creation = GeneratedImageDetails(
+        generatedImageDetails = GeneratedImageDetails(
             id = 123456789L,
             status = "Completed",
             prompt = "Example prompt",
