@@ -5,6 +5,7 @@ import org.koin.dsl.module
 val allModulesModule = module {
     includes(
         networkModule,
+        roomDatabaseModule,
         repositoryModule,
         useCasesModule
     )

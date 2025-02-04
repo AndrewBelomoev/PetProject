@@ -3,8 +3,8 @@ package com.bel.petproject.ui.screens.homeScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bel.petproject.models.creationResponse.GeneratedImageDetails
-import com.bel.petproject.usecases.CreteNewImagesUseCase
-import com.bel.petproject.usecases.GetCreatedImagesByIDUseCase
+import com.bel.petproject.usecases.remote.CreteNewImagesUseCase
+import com.bel.petproject.usecases.remote.GetCreatedImagesByIDUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,8 +13,7 @@ class HomeViewModel(
     private val creteNewImagesUseCase: CreteNewImagesUseCase,
     private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase
 ) : ViewModel() {
-    private val _generatedImageDetails =
-        MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
+    private val _generatedImageDetails = MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
     fun loadGeneratedImageDetails(id: Long) {

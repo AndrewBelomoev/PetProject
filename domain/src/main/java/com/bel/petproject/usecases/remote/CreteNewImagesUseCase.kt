@@ -1,4 +1,4 @@
-package com.bel.petproject.usecases
+package com.bel.petproject.usecases.remote
 
 import com.bel.petproject.models.creationResponse.ImageGenerationParameters
 import com.bel.petproject.models.creationResponse.GeneratedImageDetails
