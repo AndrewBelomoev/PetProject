@@ -2,10 +2,9 @@ package com.bel.petproject.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.bel.petproject.data.models.mapper.ImageDbEntity
 
 @Entity
-data class GeneratedImageDetailsDbEntity(
+data class GeneratedImageDbEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val status: String? = null,
@@ -22,6 +21,6 @@ data class GeneratedImageDetailsDbEntity(
     val initialImageStrength: Any?,
     val createdAt: String? = null,
     val updatedAt: String? = null,
-    val images: List<ImageDbEntity>,
+    val images: List<ImageDbEntity>? = null,
     val expired: Boolean? = null
 )

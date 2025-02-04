@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -36,18 +37,21 @@ dependencies {
 
     implementation(project(":domain"))
 
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
 
-    implementation ("io.insert-koin:koin-android:3.3.0")
-    implementation ("io.insert-koin:koin-androidx-navigation:3.3.0")
-    implementation ("io.insert-koin:koin-androidx-compose:3.3.0")
+    implementation("io.insert-koin:koin-android:3.3.0")
+    implementation("io.insert-koin:koin-androidx-navigation:3.3.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.3.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation(libs.androidx.room.common)
-    implementation(libs.androidx.room.ktx)
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    // Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
