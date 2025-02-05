@@ -1,6 +1,6 @@
 package com.bel.petproject.usecases.remote
 
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.repositories.ImagesRemoteRepository
 
 class GetCreatedImagesByIDUseCase(private val repository: ImagesRemoteRepository) {

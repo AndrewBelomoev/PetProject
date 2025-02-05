@@ -2,7 +2,9 @@ package com.bel.petproject.ui.screens.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.Image
+import com.bel.petproject.usecases.local.SaveGeneratedImageToDatabaseUseCase
 import com.bel.petproject.usecases.remote.CreteNewImagesUseCase
 import com.bel.petproject.usecases.remote.GetCreatedImagesByIDUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,9 +13,11 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val creteNewImagesUseCase: CreteNewImagesUseCase,
-    private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase
+    private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase,
+    private val saveImageCardUseCase: SaveGeneratedImageToDatabaseUseCase,
 ) : ViewModel() {
-    private val _generatedImageDetails = MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
+    private val _generatedImageDetails =
+        MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
     fun loadGeneratedImageDetails(id: Long) {
@@ -26,6 +30,24 @@ class HomeViewModel(
                     _generatedImageDetails.value = LceState.Error(it)
                 }
             }
+        }
+    }
+
+    fun saveImageCard(imageCard: GeneratedImageDetails) {
+        viewModelScope.launch {
+            saveImageCardUseCase(imageCard)
+        }
+    }
+
+    fun deleteImage(image: Image) {
+        val currentState = _generatedImageDetails.value
+        if (currentState is LceState.Content) {
+            val updatedImages = currentState.data.images?.toMutableList()?.apply {
+                remove(image)
+            }
+            _generatedImageDetails.value = LceState.Content(
+                currentState.data.copy(images = updatedImages)
+            )
         }
     }
 

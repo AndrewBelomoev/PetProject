@@ -1,7 +1,6 @@
 package com.bel.petproject.repositories
 
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
-import kotlinx.coroutines.flow.Flow
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 
 interface ImagesLocalRepository {
 

@@ -1,6 +1,6 @@
 package com.bel.petproject.usecases.local
 
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.repositories.ImagesLocalRepository
 
 class DeleteGeneratedImageFromDatabaseUseCase(private val repository: ImagesLocalRepository) {
