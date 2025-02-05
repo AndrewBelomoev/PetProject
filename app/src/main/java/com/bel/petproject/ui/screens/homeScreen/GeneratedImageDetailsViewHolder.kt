@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,15 +45,18 @@ fun GeneratedImageCardViewHolder(
     onCardClick: (GeneratedImageDetails) -> Unit,
     onImageClick: (Image) -> Unit,
     onImageLongClick: (Image) -> Unit,
+    onDetailsButtonClick: (GeneratedImageDetails) -> Unit,
     onSaveButtonClick: (GeneratedImageDetails) -> Unit
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(8.dp)
             .clickable { onCardClick(generatedImageDetails) }
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
 
             Text(
                 text = "Prompt: ${generatedImageDetails.prompt}",
@@ -73,14 +77,28 @@ fun GeneratedImageCardViewHolder(
                 overflow = TextOverflow.Ellipsis
             )
 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = {
+                        onDetailsButtonClick(generatedImageDetails)
+                    },
+                ) {
+                    Text(text = "Details")
+                }
+                Button(
+                    onClick = { onSaveButtonClick(generatedImageDetails) },
+                ) {
+                    Icon(imageVector = Icons.Default.AddCircle, contentDescription = "")
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "Save to database")
+                }
+            }
+
             LazyColumn() {
-                items(
-                    generatedImageDetails.images ?: listOf(
-                        Image(
-                            id = 1,
-                            url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
-                        )
-                    )
+                items(generatedImageDetails.images ?: listOf(Image(id = 1, url = ""))
                 ) { image ->
                     Box(
                         modifier = Modifier
@@ -112,25 +130,6 @@ fun GeneratedImageCardViewHolder(
                             )
                         }
                     }
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(
-                    onClick = { /*TODO*/ },
-                ) {
-                    Text(text = "Details")
-                }
-                Button(
-                    onClick = { onSaveButtonClick(generatedImageDetails) },
-                ) {
-                    Icon(imageVector = Icons.Default.AddCircle, contentDescription = "")
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Save to database")
                 }
             }
         }
@@ -172,7 +171,8 @@ fun CreationCardPreview() {
         onCardClick = {},
         onImageClick = {},
         onImageLongClick = {},
-        onSaveButtonClick = {}
+        onSaveButtonClick = {},
+        onDetailsButtonClick = {}
     )
 }
 

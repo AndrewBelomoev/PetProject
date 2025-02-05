@@ -52,9 +52,9 @@ fun HomeScreen(navController: NavHostController) {
 
     LaunchedEffect(Unit) {
 //        viewModel.loadGeneratedImageDetails(109713) // ERROR
-//        viewModel.loadGeneratedImageDetails(110141)
+        viewModel.loadGeneratedImageDetails(110141)
 //        viewModel.loadGeneratedImageDetails(110312)
-        viewModel.loadGeneratedImageDetails(110313)
+//        viewModel.loadGeneratedImageDetails(110313)
     }
 
     when (val state = generatedImageDetails) {
@@ -88,6 +88,10 @@ fun HomeScreen(navController: NavHostController) {
                 onSaveButtonClick = {
                     viewModel.saveImageCard(it)
                     Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+                },
+                onDetailsButtonClick = {
+                    sharedViewModel.setImageDetails(state.data)
+                    navController.navigate(Screen.Details.route)
                 }
             )
         }
