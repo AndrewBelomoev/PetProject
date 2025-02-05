@@ -1,6 +1,6 @@
 package com.bel.petproject.data.models
 
-import com.bel.petproject.models.creationResponse.Image
+import com.bel.petproject.models.imageCard.Image
 
 data class GeneratedImageDetailsDTO(
     val id: Long,

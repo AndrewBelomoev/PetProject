@@ -1,7 +1,7 @@
 package com.bel.petproject.repositories
 
-import com.bel.petproject.models.creationResponse.ImageGenerationParameters
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.ImageGenerationParameters
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 
 interface ImagesRemoteRepository {
 

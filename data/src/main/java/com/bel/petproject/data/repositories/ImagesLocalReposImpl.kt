@@ -3,7 +3,7 @@ package com.bel.petproject.data.repositories
 import com.bel.petproject.data.database.room.GeneratedImageDao
 import com.bel.petproject.data.models.mapper.toDomainModel
 import com.bel.petproject.data.models.mapper.toEntityModel
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.repositories.ImagesLocalRepository
 
 internal class ImagesLocalReposImpl(private val dao: GeneratedImageDao) :

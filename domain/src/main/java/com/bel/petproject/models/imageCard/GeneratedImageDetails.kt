@@ -1,4 +1,4 @@
-package com.bel.petproject.models.creationResponse
+package com.bel.petproject.models.imageCard
 
 data class GeneratedImageDetails(
     val id: Long,

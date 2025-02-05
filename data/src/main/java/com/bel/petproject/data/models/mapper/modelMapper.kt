@@ -5,9 +5,9 @@ import com.bel.petproject.data.models.ImageGenerationParametersDTO
 import com.bel.petproject.data.models.GeneratedImageDetailsDTO
 import com.bel.petproject.data.models.ImageDTO
 import com.bel.petproject.data.models.ImageDbEntity
-import com.bel.petproject.models.creationResponse.ImageGenerationParameters
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
-import com.bel.petproject.models.creationResponse.Image
+import com.bel.petproject.models.imageCard.ImageGenerationParameters
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.Image
 
 fun ImageGenerationParametersDTO.toDomainModel(): ImageGenerationParameters {
     return ImageGenerationParameters(

@@ -1,7 +1,7 @@
 package com.bel.petproject.usecases.remote
 
-import com.bel.petproject.models.creationResponse.ImageGenerationParameters
-import com.bel.petproject.models.creationResponse.GeneratedImageDetails
+import com.bel.petproject.models.imageCard.ImageGenerationParameters
+import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.repositories.ImagesRemoteRepository
 
 class CreteNewImagesUseCase(private val repository: ImagesRemoteRepository) {
