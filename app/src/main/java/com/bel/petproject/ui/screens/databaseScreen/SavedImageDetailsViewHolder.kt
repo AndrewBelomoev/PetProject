@@ -1,8 +1,9 @@
 package com.bel.petproject.ui.screens.databaseScreen
 
-import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,6 +28,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.models.imageCard.Image
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SavedImageDetailsViewHolder(
     generatedImageDetails: GeneratedImageDetails,
@@ -56,12 +57,7 @@ fun SavedImageDetailsViewHolder(
                 overflow = TextOverflow.Ellipsis
             )
 
-            (generatedImageDetails.images ?: listOf(
-                Image(
-                    id = 1,
-                    url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
-                )
-            )).forEach { image ->
+            (generatedImageDetails.images ?: listOf()).forEach { image ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -72,41 +68,32 @@ fun SavedImageDetailsViewHolder(
                     val painter = rememberAsyncImagePainter(model = image.url)
                     val painterState by painter.state.collectAsState()
 
-                    Log.d("ImageLoading", "Loading image: ${image.url}, state: $painterState")
-
-                    when (painterState) {
-                        is AsyncImagePainter.State.Loading -> {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .align(Alignment.Center)
-                            )
-                        }
-
-                        is AsyncImagePainter.State.Error -> {
-                            Text(
-                                text = "Error loading image",
-                                modifier = Modifier.align(Alignment.Center),
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-
-                        else -> {
-                            Image(
-                                painter = painter,
-                                contentDescription = "",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(8.dp))
-                            )
-                        }
+                    if (painterState is AsyncImagePainter.State.Loading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .align(Alignment.Center)
+                        )
+                    } else {
+                        Image(
+                            painter = painter,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .combinedClickable(
+                                    onClick = { onImageClick(image) },
+                                    onLongClick = { onImageLongClick(image) }
+                                )
+                        )
                     }
                 }
             }
         }
     }
 }
+
 
 @Preview
 @Composable

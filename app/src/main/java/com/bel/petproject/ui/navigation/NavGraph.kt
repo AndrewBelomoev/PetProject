@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.bel.petproject.ui.screens.FullScreenImageScreen
+import com.bel.petproject.ui.screens.createScreen.CreateScreen
 import com.bel.petproject.ui.screens.databaseScreen.DatabaseScreen
 import com.bel.petproject.ui.screens.detailsScreen.DetailsScreen
 import com.bel.petproject.ui.screens.homeScreen.HomeScreen
@@ -16,22 +17,25 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Create.route
     ) {
         composable(route = Screen.Home.route) {
             HomeScreen(navController = navController)
         }
         composable(route = Screen.Details.route) {
-            DetailsScreen()
+            DetailsScreen(navController = navController)
         }
         composable(route = Screen.Settings.route) {
             SettingsScreen(navController = navController)
         }
-        composable(route = Screen.DatabaseScreen.route) {
-            DatabaseScreen()
+        composable(route = Screen.Database.route) {
+            DatabaseScreen(navController = navController)
         }
         composable(route = Screen.FullScreenImage.route) {
             FullScreenImageScreen(navController = navController)
+        }
+        composable(route = Screen.Create.route) {
+            CreateScreen(navController = navController)
         }
 //        composable(
 //            route = Screen.FullScreenImage.route + "/{imageUrl}",

@@ -1,9 +1,10 @@
-package com.bel.petproject.ui.screens.mainScreen
+package com.bel.petproject.ui.screens.applicationScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Scaffold
@@ -18,13 +19,14 @@ import com.bel.petproject.ui.navigation.Screen
 import com.bel.petproject.ui.navigation.SetupNavGraph
 
 private val bottomNavItems = listOf(
+    BottomNavItem("Create", Icons.Default.Create, Screen.Create.route),
     BottomNavItem("Home", Icons.Default.Home, Screen.Home.route),
-    BottomNavItem("DatabaseScreen", Icons.Default.AddCircle, Screen.DatabaseScreen.route),
+    BottomNavItem("Database", Icons.Default.AddCircle, Screen.Database.route),
     BottomNavItem("Settings", Icons.Default.Settings, Screen.Settings.route)
 )
 
 @Composable
-fun MainScreen() {
+fun ApplicationScreen() {
     val navController = rememberNavController()
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
