@@ -46,18 +46,27 @@ fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
 
     val generationStatus by viewModel.generationStatus.collectAsState()
-
     val generationParameters by sharedViewModel.generationParameters.collectAsState()
-
     val generatedImageDetails by viewModel.generatedImageDetails.collectAsState()
 
     var showDialog by remember { mutableStateOf(false) }
     var selectedImage by remember { mutableStateOf<Image?>(null) }
 
 
-    
+    LaunchedEffect(Unit) {
+        // Проверяем, есть ли уже сгенерированные изображения
+        if (generatedImageDetails !is LceState.Content) {
+            val request = generationParameters!!
+            Log.d("generationParameters1", request.toString())
+            viewModel.createNewImages(request = request)
+        } else {
+            Log.d("generationParameters1", "Images already generated, skipping generation.")
+        }
+    }
+
     when (val state = generatedImageDetails) {
         is LceState.Loading -> {
+            Text(text = "Status: $generationStatus", modifier = Modifier.padding(20.dp))
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxSize()
@@ -68,8 +77,6 @@ fun HomeScreen(navController: NavHostController) {
 
         is LceState.Content -> {
             Column {
-
-                Text(text = "Статус генерации: $generationStatus")
 
                 GeneratedImageCardViewHolder(
                     generatedImageDetails = state.data,
@@ -128,7 +135,12 @@ fun HomeScreen(navController: NavHostController) {
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = { }) {
+                    Button(onClick = {
+                        val request = generationParameters
+                        if (request != null) {
+                            viewModel.createNewImages(request = request)
+                        }
+                    }) {
                         Text(text = "Повторить")
                     }
                 }

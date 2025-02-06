@@ -20,7 +20,6 @@ import com.bel.petproject.ui.navigation.SetupNavGraph
 
 private val bottomNavItems = listOf(
     BottomNavItem("Create", Icons.Default.Create, Screen.Create.route),
-    BottomNavItem("Home", Icons.Default.Home, Screen.Home.route),
     BottomNavItem("Database", Icons.Default.AddCircle, Screen.Database.route),
     BottomNavItem("Settings", Icons.Default.Settings, Screen.Settings.route)
 )
