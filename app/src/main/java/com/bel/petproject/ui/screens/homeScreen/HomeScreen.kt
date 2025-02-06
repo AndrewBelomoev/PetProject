@@ -45,18 +45,17 @@ fun HomeScreen(navController: NavHostController) {
 
     val context = LocalContext.current
 
+    val generationStatus by viewModel.generationStatus.collectAsState()
+
+    val generationParameters by sharedViewModel.generationParameters.collectAsState()
+
     val generatedImageDetails by viewModel.generatedImageDetails.collectAsState()
 
     var showDialog by remember { mutableStateOf(false) }
     var selectedImage by remember { mutableStateOf<Image?>(null) }
 
-    LaunchedEffect(Unit) {
-//        viewModel.loadGeneratedImageDetails(109713) // ERROR
-        viewModel.loadGeneratedImageDetails(110141)
-//        viewModel.loadGeneratedImageDetails(110312)
-//        viewModel.loadGeneratedImageDetails(110313)
-    }
 
+    
     when (val state = generatedImageDetails) {
         is LceState.Loading -> {
             Box(
@@ -68,32 +67,37 @@ fun HomeScreen(navController: NavHostController) {
         }
 
         is LceState.Content -> {
-            GeneratedImageCardViewHolder(
-                generatedImageDetails = state.data,
-                onCardClick = {
-                    sharedViewModel.setImageDetails(state.data)
-                    Log.d("Send data", "data: ${state.data}")
-                    navController.navigate(Screen.Details.route)
-                },
-                onImageClick = {
-                    val imageUrl = it.url
-                    sharedViewModel.setImageUrl(imageUrl ?: "")
-                    navController.navigate(Screen.FullScreenImage.route)
-                },
-                onImageLongClick = { image ->
-                    selectedImage = image
-                    showDialog = true
+            Column {
 
-                },
-                onSaveButtonClick = {
-                    viewModel.saveImageCard(it)
-                    Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
-                },
-                onDetailsButtonClick = {
-                    sharedViewModel.setImageDetails(state.data)
-                    navController.navigate(Screen.Details.route)
-                }
-            )
+                Text(text = "Статус генерации: $generationStatus")
+
+                GeneratedImageCardViewHolder(
+                    generatedImageDetails = state.data,
+                    onCardClick = {
+                        sharedViewModel.setImageDetails(state.data)
+                        Log.d("Send data", "data: ${state.data}")
+                        navController.navigate(Screen.Details.route)
+                    },
+                    onImageClick = {
+                        val imageUrl = it.url
+                        sharedViewModel.setImageUrl(imageUrl ?: "")
+                        navController.navigate(Screen.FullScreenImage.route)
+                    },
+                    onImageLongClick = { image ->
+                        selectedImage = image
+                        showDialog = true
+
+                    },
+                    onSaveButtonClick = {
+                        viewModel.saveImageCard(it)
+                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+                    },
+                    onDetailsButtonClick = {
+                        sharedViewModel.setImageDetails(state.data)
+                        navController.navigate(Screen.Details.route)
+                    }
+                )
+            }
         }
 
         is LceState.Error -> {
@@ -124,7 +128,7 @@ fun HomeScreen(navController: NavHostController) {
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = { viewModel.loadGeneratedImageDetails(110141) }) {
+                    Button(onClick = { }) {
                         Text(text = "Повторить")
                     }
                 }
