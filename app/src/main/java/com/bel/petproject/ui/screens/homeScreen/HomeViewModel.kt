@@ -19,8 +19,8 @@ class HomeViewModel(
     private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase,
     private val saveImageCardUseCase: SaveGeneratedImageToDatabaseUseCase,
 ) : ViewModel() {
-    private val _generatedImageDetails =
-        MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
+
+    private val _generatedImageDetails = MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
     private val _generationStatus = MutableStateFlow<String>("")
@@ -29,23 +29,32 @@ class HomeViewModel(
     fun createNewImages(request: ImageGenerationParameters) {
         viewModelScope.launch {
             creteNewImagesUseCase.invoke(request).onSuccess { generatedImageDetails ->
+                _generationStatus.value = generatedImageDetails.status.toString()
                 val id = generatedImageDetails.id
-                Log.d("FindId", id.toString())
-                loadGeneratedImageCardById(id)
+                checkGeneratedImageStatus(id)
             }.onFailure {
-
+                _generatedImageDetails.value = LceState.Error(it)
             }
         }
     }
 
-    fun loadGeneratedImageCardById(id: Long) {
-        if (_generatedImageDetails.value !is LceState.Content) {
-            viewModelScope.launch {
-                _generatedImageDetails.value = LceState.Loading
-                getCreatedImagesByIDUseCase.invoke(id).onSuccess {
-                    _generatedImageDetails.value = LceState.Content(it)
+    private fun checkGeneratedImageStatus(imageId: Long) {
+        viewModelScope.launch {
+            while (true) {
+                getCreatedImagesByIDUseCase(imageId).onSuccess { generatedImageDetails ->
+                    if (generatedImageDetails.status == "completed") {
+                        _generationStatus.value = generatedImageDetails.status.toString()
+                        _generatedImageDetails.value = LceState.Content(generatedImageDetails)
+                        return@launch
+                    } else {
+                        Log.d("WaitData1", "Ждем ещё 5 секунд")
+                        _generationStatus.value = generatedImageDetails.status.toString()
+                        delay(5000)
+
+                    }
                 }.onFailure {
                     _generatedImageDetails.value = LceState.Error(it)
+                    return@launch
                 }
             }
         }
@@ -68,7 +77,6 @@ class HomeViewModel(
             )
         }
     }
-
 }
 
 sealed class LceState<out T> {

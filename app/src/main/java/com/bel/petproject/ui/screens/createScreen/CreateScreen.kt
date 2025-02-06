@@ -53,8 +53,8 @@ fun CreateScreen(navController: NavHostController) {
     val sharedViewModel: SharedViewModel = koinViewModel()
 
     val scrollState = rememberScrollState()
-    var model by rememberSaveable { mutableStateOf<String?>(null) }
-    var aspectRatio by rememberSaveable { mutableStateOf<String?>(null) }
+    var model by rememberSaveable { mutableStateOf<String?>("photography") }
+    var aspectRatio by rememberSaveable { mutableStateOf<String?>("square") }
     var highResolution by rememberSaveable { mutableStateOf(false) }
     var images by rememberSaveable { mutableLongStateOf(1L) }
     var steps by rememberSaveable { mutableLongStateOf(20L) }
@@ -120,6 +120,7 @@ fun GenerateImageButton(
             )
             sharedViewModel.setGenerationParameters(parameters)
             navController.navigate(Screen.Home.route)
+
         },
         modifier = Modifier
             .padding(22.dp)
