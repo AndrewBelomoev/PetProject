@@ -35,11 +35,16 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun PetProjectTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    theme: Theme,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when(theme) {
+        Theme.DARK -> true
+        Theme.LIGHT -> false
+        Theme.SYSTEM -> isSystemInDarkTheme()
+    }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -55,4 +60,8 @@ fun PetProjectTheme(
         typography = Typography,
         content = content
     )
+}
+
+enum class Theme {
+    LIGHT, DARK, SYSTEM
 }
