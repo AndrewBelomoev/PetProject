@@ -6,12 +6,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,6 +38,7 @@ import com.bel.petproject.models.imageCard.Image
 fun SavedImageDetailsViewHolder(
     generatedImageDetails: GeneratedImageDetails,
     onCardClick: (GeneratedImageDetails) -> Unit,
+    onDelButtonClick: (GeneratedImageDetails) -> Unit,
     onImageClick: (Image) -> Unit,
     onImageLongClick: (Image) -> Unit
 ) {
@@ -44,18 +50,25 @@ fun SavedImageDetailsViewHolder(
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
 
-            Text(
-                text = "ID: ${generatedImageDetails.id}",
-                Modifier.clickable { },
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = "Prompt: ${generatedImageDetails.prompt}",
-                Modifier.clickable { },
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row {
+                Column(modifier = Modifier.weight(1f)) {
+
+                    Text(
+                        text = "ID: ${generatedImageDetails.id}",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "Prompt: ${generatedImageDetails.prompt}",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                IconButton(onClick = { onDelButtonClick(generatedImageDetails) }) {
+                    Icon(imageVector = Icons.Filled.Delete, contentDescription = "")
+                }
+
+            }
 
             (generatedImageDetails.images ?: listOf()).forEach { image ->
                 Box(
@@ -102,7 +115,7 @@ fun SavedImageDetailsViewHolderPreview() {
         generatedImageDetails = GeneratedImageDetails(
             id = 123456789L,
             status = "Completed",
-            prompt = "Example prompt",
+            prompt = "Example prompt Example prompt Example prompt Example prompt",
             negativePrompt = "Example negative prompt",
             width = 1024L,
             height = 768L,
@@ -130,6 +143,7 @@ fun SavedImageDetailsViewHolderPreview() {
         onCardClick = {},
         onImageClick = {},
         onImageLongClick = {},
+        onDelButtonClick = {}
     )
 }
 

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,19 +59,16 @@ fun GeneratedImageCardViewHolder(
 
             Text(
                 text = "Prompt: ${generatedImageDetails.prompt}",
-                Modifier.clickable { },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = "Negative Prompt: ${generatedImageDetails.negativePrompt}",
-                Modifier.clickable { },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = "Status: ${generatedImageDetails.status}",
-                Modifier.clickable { },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

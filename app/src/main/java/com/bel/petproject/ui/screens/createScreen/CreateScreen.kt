@@ -89,12 +89,12 @@ fun CreateScreen(navController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCreateScreen() {
+private fun PreviewCreateScreen() {
     CreateScreen(navController = rememberNavController())
 }
 
 @Composable
-fun GenerateImageButton(
+private fun GenerateImageButton(
     model: String?,
     aspectRatio: String?,
     highResolution: Boolean?,
@@ -130,7 +130,7 @@ fun GenerateImageButton(
 }
 
 @Composable
-fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
+private fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
     var error by rememberSaveable { mutableStateOf(false) }
 
     Card(
@@ -163,7 +163,7 @@ fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
 }
 
 @Composable
-fun NegativePromptInputField(negativePrompt: String, onNegativePromptChange: (String) -> Unit) {
+private fun NegativePromptInputField(negativePrompt: String, onNegativePromptChange: (String) -> Unit) {
     var error by rememberSaveable { mutableStateOf(false) }
 
     Card(
@@ -196,7 +196,7 @@ fun NegativePromptInputField(negativePrompt: String, onNegativePromptChange: (St
 }
 
 @Composable
-fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
+private fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedModel by rememberSaveable { mutableStateOf(model) }
 
@@ -250,7 +250,7 @@ fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
 }
 
 @Composable
-fun ImageQuantity(images: Long, onImagesChange: (Long) -> Unit) {
+private fun ImageQuantity(images: Long, onImagesChange: (Long) -> Unit) {
     Card(
         modifier = Modifier.padding(8.dp)
     ) {
@@ -272,7 +272,7 @@ fun ImageQuantity(images: Long, onImagesChange: (Long) -> Unit) {
 }
 
 @Composable
-fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (String?) -> Unit) {
+private fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (String?) -> Unit) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedAspectRatio by rememberSaveable { mutableStateOf(aspectRatio) }
 
@@ -326,7 +326,7 @@ fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (String?) ->
 }
 
 @Composable
-fun HighResolutionSelection(highResolution: Boolean, onHighResolutionChange: (Boolean) -> Unit) {
+private fun HighResolutionSelection(highResolution: Boolean, onHighResolutionChange: (Boolean) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -349,7 +349,7 @@ fun HighResolutionSelection(highResolution: Boolean, onHighResolutionChange: (Bo
 }
 
 @Composable
-fun SeedInputField(seed: Long?, onSeedChange: (Long?) -> Unit) {
+private fun SeedInputField(seed: Long?, onSeedChange: (Long?) -> Unit) {
     var seedText by rememberSaveable { mutableStateOf(seed?.toString() ?: "") }
 
     Card(
@@ -375,7 +375,7 @@ fun SeedInputField(seed: Long?, onSeedChange: (Long?) -> Unit) {
 }
 
 @Composable
-fun StepsInputField(steps: Long, onStepsChange: (Long) -> Unit) {
+private fun StepsInputField(steps: Long, onStepsChange: (Long) -> Unit) {
     var stepsText by rememberSaveable { mutableStateOf(steps.toString()) }
     var error by rememberSaveable { mutableStateOf(false) }
 

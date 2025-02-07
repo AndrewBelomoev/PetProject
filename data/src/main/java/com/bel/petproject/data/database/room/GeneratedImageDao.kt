@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bel.petproject.data.models.GeneratedImageDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface GeneratedImageDao {
@@ -17,6 +18,6 @@ internal interface GeneratedImageDao {
     suspend fun deleteGeneratedImage(generatedImageDbEntity: GeneratedImageDbEntity)
 
     @Query("Select * From generatedimagedbentity")
-    suspend fun getAllGeneratedImages(): List<GeneratedImageDbEntity>
+    fun subscribeChanges(): Flow<List<GeneratedImageDbEntity>>
 
 }
