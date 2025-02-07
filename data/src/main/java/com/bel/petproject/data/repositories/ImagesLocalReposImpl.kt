@@ -5,6 +5,7 @@ import com.bel.petproject.data.models.mapper.toDomainModel
 import com.bel.petproject.data.models.mapper.toEntityModel
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.repositories.ImagesLocalRepository
+import kotlinx.coroutines.flow.map
 
 internal class ImagesLocalReposImpl(private val dao: GeneratedImageDao) :
     ImagesLocalRepository {
@@ -15,10 +16,10 @@ internal class ImagesLocalReposImpl(private val dao: GeneratedImageDao) :
         }
 
     override suspend fun getAllGeneratedImagesFromDatabase() = runCatching {
-        dao.getAllGeneratedImages()
-    }.map { listGeneratedImageDbEntity ->
-        listGeneratedImageDbEntity.map { generatedImageDbEntity ->
-            generatedImageDbEntity.toDomainModel()
+        dao.subscribeChanges().map { listGeneratedImageDbEntity ->
+            listGeneratedImageDbEntity.map { generatedImageDbEntity ->
+                generatedImageDbEntity.toDomainModel()
+            }
         }
     }
 
