@@ -1,7 +1,6 @@
 package com.bel.petproject.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,12 +10,10 @@ import com.bel.petproject.ui.screens.databaseScreen.DatabaseScreen
 import com.bel.petproject.ui.screens.detailsScreen.DetailsScreen
 import com.bel.petproject.ui.screens.homeScreen.HomeScreen
 import com.bel.petproject.ui.screens.settingsScreen.SettingsScreen
-import com.bel.petproject.ui.theme.Theme
 
 @Composable
 fun SetupNavGraph(
-    navController: NavHostController,
-    themeState: MutableState<Theme>
+    navController: NavHostController
 ) {
     NavHost(
         navController = navController,
@@ -29,7 +26,7 @@ fun SetupNavGraph(
             DetailsScreen(navController = navController)
         }
         composable(route = Screen.Settings.route) {
-            SettingsScreen(navController = navController, themeState)
+            SettingsScreen(navController = navController)
         }
         composable(route = Screen.Database.route) {
             DatabaseScreen(navController = navController)

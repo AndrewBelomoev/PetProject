@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -18,7 +16,6 @@ import com.bel.petproject.ui.navigation.BottomNavItem
 import com.bel.petproject.ui.navigation.BottomNavigationBar
 import com.bel.petproject.ui.navigation.Screen
 import com.bel.petproject.ui.navigation.SetupNavGraph
-import com.bel.petproject.ui.theme.Theme
 
 private val bottomNavItems = listOf(
     BottomNavItem("Create", Icons.Default.Create, Screen.Create.route),
@@ -27,7 +24,7 @@ private val bottomNavItems = listOf(
 )
 
 @Composable
-fun ApplicationScreen(themeState: MutableState<Theme>) {
+fun ApplicationScreen() {
     val navController = rememberNavController()
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
@@ -49,7 +46,7 @@ fun ApplicationScreen(themeState: MutableState<Theme>) {
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            SetupNavGraph(navController = navController, themeState = themeState )
+            SetupNavGraph(navController = navController)
         }
     }
 }
