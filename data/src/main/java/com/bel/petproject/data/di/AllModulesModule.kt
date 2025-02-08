@@ -7,6 +7,7 @@ val allModulesModule = module {
         networkModule,
         roomDatabaseModule,
         repositoryModule,
-        useCasesModule
+        useCasesModule,
+        settingsModule
     )
 }
