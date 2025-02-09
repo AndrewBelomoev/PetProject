@@ -14,7 +14,4 @@ class AuthInterceptor(private val apiKey: String) : Interceptor {
         return chain.proceed(request)
     }
 
-    private companion object {
-
-    }
 }

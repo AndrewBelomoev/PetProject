@@ -3,6 +3,7 @@ package com.bel.petproject.data.service
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.bel.petproject.models.settings.Localization
 import com.bel.petproject.models.settings.ThemeMode
 import com.bel.petproject.service.PreferencesService
 
@@ -12,7 +13,8 @@ class PreferencesServiceImpl(context: Context) : PreferencesService {
 
     companion object {
         private const val THEME_MODE_KEY = "theme_mode"
-        private const val LANGUAGE_KEY = "language"
+        private const val LOCALIZATION_KEY = "localization"
+        private const val API_KEY = "api_key"
     }
 
     override var themeMode: ThemeMode
@@ -26,15 +28,24 @@ class PreferencesServiceImpl(context: Context) : PreferencesService {
             }
         }
 
-//    override var language: Language
-//        get() {
-//            val languageString = sharedPreferences.getString(LANGUAGE_KEY, Language.ENGLISH.name)
-//            return Language.valueOf(languageString ?: Language.ENGLISH.name)
-//        }
-//        set(value) {
-//            sharedPreferences.edit {
-//                putString(LANGUAGE_KEY, value.name)
-//            }
-//        }
+    override var localization: Localization
+        get() {
+            val languageString =
+                sharedPreferences.getString(LOCALIZATION_KEY, Localization.ENGLISH.name)
+            return Localization.valueOf(languageString ?: Localization.ENGLISH.name)
+        }
+        set(value) {
+            sharedPreferences.edit {
+                putString(LOCALIZATION_KEY, value.name)
+            }
+        }
+
+    var apiKey: String?
+        get() = sharedPreferences.getString(API_KEY, null)
+        set(value) {
+            sharedPreferences.edit {
+                putString(API_KEY, value)
+            }
+        }
 
 }
