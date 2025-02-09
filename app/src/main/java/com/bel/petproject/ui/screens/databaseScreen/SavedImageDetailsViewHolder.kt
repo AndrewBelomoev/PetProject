@@ -52,12 +52,6 @@ fun SavedImageDetailsViewHolder(
 
             Row {
                 Column(modifier = Modifier.weight(1f)) {
-
-                    Text(
-                        text = "ID: ${generatedImageDetails.id}",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
                     Text(
                         text = "Prompt: ${generatedImageDetails.prompt}",
                         maxLines = 1,

@@ -1,3 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PetProject</string>
+    <string name="app_name" translatable="false">PetProject</string>
+    <string name="prompt">Enter a text request (prompt):</string>
+    <string name="settings_screen">Settings screen</string>
+    <string name="generate_image">Generate Image</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="system_theme">System Theme</string>
+    <string name="eng_language">ENG</string>
+    <string name="rus_language">RUS</string>
+
+    <string name="prompt2">Prompt:</string>
+    <string name="negative_prompt">Enter negative prompt:</string>
+    <string name="negative_prompt_label">Negative Prompt</string>
+    <string name="negative_prompt_error">The length of the text should not exceed 765 characters.</string>
+    <string name="choose_model">Choose a model for generation:</string>
+    <string name="select_model">Select a model</string>
+    <string name="number_of_images">Number of images:</string>
+    <string name="choose_aspect_ratio">Choose an aspect ratio:</string>
+    <string name="select_aspect_ratio">Select an aspect ratio</string>
+    <string name="high_resolution">High Resolution:</string>
+    <string name="seed">Seed:</string>
+
+    <string name="enter_steps">Enter the number of iterations (steps):</string>
+    <string name="steps_range">from 1 to 150. The default value is 20.</string>
+    <string name="steps_label">Steps</string>
+    <string name="steps_error">The value must be between 1 and 150. The default value of 20 is set.</string>
+
+
+
 </resources>

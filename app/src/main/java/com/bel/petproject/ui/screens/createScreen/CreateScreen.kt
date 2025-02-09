@@ -14,9 +14,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
@@ -35,11 +35,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bel.petproject.R
 import com.bel.petproject.models.imageCard.AspectRatio
 import com.bel.petproject.models.imageCard.ImageGenerationParameters
 import com.bel.petproject.models.imageCard.ImageModel
@@ -125,7 +127,7 @@ private fun GenerateImageButton(
         modifier = Modifier
             .padding(22.dp)
     ) {
-        Text(text = "Сгенерировать изображение")
+        Text(text = stringResource(R.string.generate_image))
     }
 }
 
@@ -139,7 +141,7 @@ private fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
-            Text(text = "Введите текстовый запрос (prompt):")
+            Text(text = stringResource(R.string.prompt))
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = prompt,
@@ -154,7 +156,7 @@ private fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
             )
             if (error) {
                 Text(
-                    text = "Длина текста должна быть от 3 до 765 символов.",
+                    text = "",
                     color = MaterialTheme.colorScheme.error
                 )
             }
@@ -163,7 +165,10 @@ private fun PromptInputField(prompt: String, onPromptChange: (String) -> Unit) {
 }
 
 @Composable
-private fun NegativePromptInputField(negativePrompt: String, onNegativePromptChange: (String) -> Unit) {
+private fun NegativePromptInputField(
+    negativePrompt: String,
+    onNegativePromptChange: (String) -> Unit
+) {
     var error by rememberSaveable { mutableStateOf(false) }
 
     Card(
@@ -172,7 +177,7 @@ private fun NegativePromptInputField(negativePrompt: String, onNegativePromptCha
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
-            Text(text = "Введите негативный текстовый запрос (negative prompt):")
+            Text(text = stringResource(id = R.string.negative_prompt_label))
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = negativePrompt,
@@ -187,7 +192,7 @@ private fun NegativePromptInputField(negativePrompt: String, onNegativePromptCha
             )
             if (error) {
                 Text(
-                    text = "Длина текста должна быть не более 765 символов.",
+                    text = stringResource(R.string.negative_prompt_error),
                     color = MaterialTheme.colorScheme.error
                 )
             }
@@ -206,7 +211,7 @@ private fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Выберите модель для генерации:")
+            Text(text = stringResource(id = R.string.choose_model))
             Spacer(modifier = Modifier.height(16.dp))
 
             Box(
@@ -221,7 +226,7 @@ private fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = selectedModel ?: "Выберите модель",
+                        text = selectedModel ?: stringResource(id = R.string.select_model),
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = { expanded = true }) {
@@ -259,9 +264,12 @@ private fun ImageQuantity(images: Long, onImagesChange: (Long) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Количество изображений:")
+            Text(text = stringResource(R.string.number_of_images))
             IconButton(onClick = { onImagesChange(maxOf(1, images - 1)) }) {
-                Icon(imageVector = Icons.Filled.KeyboardArrowLeft, contentDescription = "Уменьшить")
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                    contentDescription = "Уменьшить"
+                )
             }
             Text(text = images.toString())
             IconButton(onClick = { onImagesChange(minOf(12, images + 1)) }) {
@@ -282,7 +290,7 @@ private fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (Str
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Выберите соотношение сторон:")
+            Text(text = stringResource(R.string.choose_aspect_ratio))
             Spacer(modifier = Modifier.height(16.dp))
 
             Box(
@@ -297,7 +305,7 @@ private fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (Str
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = selectedAspectRatio ?: "Выберите соотношение сторон",
+                        text = selectedAspectRatio ?: stringResource(R.string.select_aspect_ratio),
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = { expanded = true }) {
@@ -326,7 +334,10 @@ private fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (Str
 }
 
 @Composable
-private fun HighResolutionSelection(highResolution: Boolean, onHighResolutionChange: (Boolean) -> Unit) {
+private fun HighResolutionSelection(
+    highResolution: Boolean,
+    onHighResolutionChange: (Boolean) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -338,7 +349,7 @@ private fun HighResolutionSelection(highResolution: Boolean, onHighResolutionCha
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Высокое разрешение:")
+            Text(text = stringResource(R.string.high_resolution))
             Spacer(modifier = Modifier.width(16.dp))
             Switch(
                 checked = highResolution,
@@ -366,7 +377,7 @@ private fun SeedInputField(seed: Long?, onSeedChange: (Long?) -> Unit) {
                     seedText = it
                     onSeedChange(it.toLongOrNull())
                 },
-                label = { Text("Seed") },
+                label = { Text(stringResource(R.string.seed)) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
             )
@@ -385,8 +396,8 @@ private fun StepsInputField(steps: Long, onStepsChange: (Long) -> Unit) {
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
-            Text(text = "Введите количество итераций (steps):")
-            Text(text = "от 1 до 150. По умолчанию значение равно 20.")
+            Text(text = stringResource(id = R.string.enter_steps))
+            Text(text = stringResource(id = R.string.steps_range))
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = stepsText,
@@ -396,14 +407,14 @@ private fun StepsInputField(steps: Long, onStepsChange: (Long) -> Unit) {
                     error = stepValue == null || stepValue !in 1..150
                     onStepsChange(if (error) 20L else stepValue!!)
                 },
-                label = { Text("Steps") },
+                label = { Text(stringResource(id = R.string.steps_label)) },
                 modifier = Modifier.fillMaxWidth(),
                 isError = error,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
             )
             if (error) {
                 Text(
-                    text = "Значение должно быть от 1 до 150. Установлено значение по умолчанию: 20.",
+                    text = stringResource(id = R.string.steps_error),
                     color = MaterialTheme.colorScheme.error
                 )
             }

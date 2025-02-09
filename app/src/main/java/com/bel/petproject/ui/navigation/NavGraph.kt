@@ -37,15 +37,6 @@ fun SetupNavGraph(
         composable(route = Screen.Create.route) {
             CreateScreen(navController = navController)
         }
-//        composable(
-//            route = Screen.FullScreenImage.route + "/{imageUrl}",
-//            arguments = listOf(navArgument("imageUrl") { type = NavType.StringType })
-//        ) { backStackEntry ->
-//            FullScreenImageScreen(
-//                navController = navController,
-//                imageUrl = backStackEntry.arguments?.getString("imageUrl") ?: ""
-//            )
-//        }
     }
 }
 
