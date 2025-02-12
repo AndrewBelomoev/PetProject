@@ -1,9 +1,7 @@
 package com.bel.petproject.ui.screens.dialog
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +22,29 @@ fun ShowDeleteConfirmationDialog(
                 onClick = { onConfirm() }
             ) {
                 Text("Удалить")
+            }
+        },
+        dismissButton = {
+            Button(onClick = { onDismiss() }) { Text("Отмена") }
+        },
+    )
+}
+
+@Composable
+fun ShowSaveConfirmationDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        title = { Text("Подтверждение сохранения") },
+        text = { Text("Вы уверены, что хотите сохранить это изображение?") },
+        onDismissRequest = { onDismiss() },
+        confirmButton = {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
+                onClick = { onConfirm() }
+            ) {
+                Text("Сохранить")
             }
         },
         dismissButton = {

@@ -3,10 +3,12 @@ package com.bel.petproject.ui.screens.homeScreen
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bel.petproject.model.LceState
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.models.imageCard.Image
 import com.bel.petproject.models.imageCard.ImageGenerationParameters
 import com.bel.petproject.usecases.local.SaveGeneratedImageToDatabaseUseCase
+import com.bel.petproject.usecases.local.SaveImageToGalleryUseCase
 import com.bel.petproject.usecases.remote.CreteNewImagesUseCase
 import com.bel.petproject.usecases.remote.GetCreatedImagesByIDUseCase
 import kotlinx.coroutines.delay
@@ -18,13 +20,18 @@ class HomeViewModel(
     private val creteNewImagesUseCase: CreteNewImagesUseCase,
     private val getCreatedImagesByIDUseCase: GetCreatedImagesByIDUseCase,
     private val saveImageCardUseCase: SaveGeneratedImageToDatabaseUseCase,
+    private val saveImageToGalleryUseCase: SaveImageToGalleryUseCase
 ) : ViewModel() {
 
-    private val _generatedImageDetails = MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
+    private val _generatedImageDetails =
+        MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
     private val _generationStatus = MutableStateFlow<String>("")
     val generationStatus: StateFlow<String> get() = _generationStatus
+
+    private val _saveImageToGalleryResult = MutableStateFlow<Boolean?>(null)
+    val saveImageToGalleryResult: StateFlow<Boolean?> get() = _saveImageToGalleryResult
 
     fun createNewImages(request: ImageGenerationParameters) {
         viewModelScope.launch {
@@ -66,6 +73,13 @@ class HomeViewModel(
         }
     }
 
+    fun saveImageToGallery(url: String) {
+        viewModelScope.launch {
+            val result = saveImageToGalleryUseCase(url)
+            _saveImageToGalleryResult.value = result
+        }
+    }
+
     fun deleteImage(image: Image) {
         val currentState = _generatedImageDetails.value
         if (currentState is LceState.Content) {
@@ -78,10 +92,3 @@ class HomeViewModel(
         }
     }
 }
-
-sealed class LceState<out T> {
-    data object Loading : LceState<Nothing>()
-    data class Content<out T>(val data: T) : LceState<T>()
-    data class Error(val throwable: Throwable) : LceState<Nothing>()
-}
-

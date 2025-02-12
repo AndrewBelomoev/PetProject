@@ -32,10 +32,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bel.petproject.model.LceState
 import com.bel.petproject.models.imageCard.Image
 import com.bel.petproject.ui.navigation.Screen
+import com.bel.petproject.ui.screens.ImageCardViewHolder
 import com.bel.petproject.ui.screens.SharedViewModel
 import com.bel.petproject.ui.screens.dialog.ShowDeleteConfirmationDialog
+import com.bel.petproject.ui.screens.dialog.ShowSaveConfirmationDialog
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -49,9 +52,13 @@ fun HomeScreen(navController: NavHostController) {
     val generationParameters by sharedViewModel.generationParameters.collectAsState()
     val generatedImageDetails by viewModel.generatedImageDetails.collectAsState()
 
-    var showDialog by remember { mutableStateOf(false) }
-    var selectedImage by remember { mutableStateOf<Image?>(null) }
+    val saveImageToGalleryResult by viewModel.saveImageToGalleryResult.collectAsState()
 
+    var showDelDialog by remember { mutableStateOf(false) }
+    var selectedImageToDel by remember { mutableStateOf<Image?>(null) }
+
+    var showSaveDialog by remember { mutableStateOf(false) }
+    var selectedImageToSave by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         // Проверяем, есть ли уже сгенерированные изображения
@@ -77,8 +84,8 @@ fun HomeScreen(navController: NavHostController) {
 
         is LceState.Content -> {
             Column {
-
-                GeneratedImageCardViewHolder(
+                ImageCardViewHolder(
+                    mode = 1,
                     generatedImageDetails = state.data,
                     onCardClick = {
                         sharedViewModel.setImageDetails(state.data)
@@ -91,9 +98,8 @@ fun HomeScreen(navController: NavHostController) {
                         navController.navigate(Screen.FullScreenImage.route)
                     },
                     onImageLongClick = { image ->
-                        selectedImage = image
-                        showDialog = true
-
+                        showSaveDialog = true
+                        selectedImageToSave = image.url
                     },
                     onSaveButtonClick = {
                         viewModel.saveImageCard(it)
@@ -102,7 +108,15 @@ fun HomeScreen(navController: NavHostController) {
                     onDetailsButtonClick = {
                         sharedViewModel.setImageDetails(state.data)
                         navController.navigate(Screen.Details.route)
+                    },
+                    onDelCardButtonClick = {
+
+                    },
+                    onDelImageButtonClick = { image ->
+                        selectedImageToDel = image
+                        showDelDialog = true
                     }
+
                 )
             }
         }
@@ -148,17 +162,39 @@ fun HomeScreen(navController: NavHostController) {
         }
     }
 
-    if (showDialog && selectedImage != null) {
+    if (showDelDialog && selectedImageToDel != null) {
         ShowDeleteConfirmationDialog(
             onConfirm = {
-                viewModel.deleteImage(selectedImage!!)
+                viewModel.deleteImage(selectedImageToDel!!)
                 Toast.makeText(context, "Изображение удалено", Toast.LENGTH_SHORT).show()
-                showDialog = false
+                showDelDialog = false
             },
-            onDismiss = { showDialog = false }
+            onDismiss = { showDelDialog = false }
         )
     }
-
+    if (showSaveDialog && selectedImageToSave != null) {
+        ShowSaveConfirmationDialog(
+            onConfirm = {
+                viewModel.saveImageToGallery(selectedImageToSave!!)
+                saveImageToGalleryResult?.let { result ->
+                    if (result) {
+                        Toast.makeText(
+                            context,
+                            "Image saved successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(context, "Failed to save image", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                showSaveDialog = false
+            },
+            onDismiss = {
+                showSaveDialog = false
+            }
+        )
+    }
 }
 
 @Preview
