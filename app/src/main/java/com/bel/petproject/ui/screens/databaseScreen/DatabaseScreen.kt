@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,11 +20,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.bel.petproject.model.LceState
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.ui.navigation.Screen
+import com.bel.petproject.ui.screens.ImageCardViewHolder
 import com.bel.petproject.ui.screens.SharedViewModel
 import com.bel.petproject.ui.screens.dialog.ShowDeleteConfirmationDialog
-import com.bel.petproject.ui.screens.homeScreen.LceState
+import com.bel.petproject.ui.screens.dialog.ShowSaveConfirmationDialog
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.koinViewModel
 
@@ -37,8 +40,13 @@ fun DatabaseScreen(navController: NavHostController) {
         lifecycle = LocalLifecycleOwner.current.lifecycle
     )
 
+    val saveImageToGalleryResult by viewModel.saveImageToGalleryResult.collectAsState()
+
     var showDialog by remember { mutableStateOf(false) }
     var selectedCard by remember { mutableStateOf<GeneratedImageDetails?>(null) }
+
+    var showSaveDialog by remember { mutableStateOf(false) }
+    var selectedImageToSave by remember { mutableStateOf<String?>(null) }
 
     val context = LocalContext.current
 
@@ -63,13 +71,14 @@ fun DatabaseScreen(navController: NavHostController) {
                 LazyColumn {
                     items(images) { imageDetails ->
                         Log.d("Images?", "my image is: ${imageDetails.images}")
-                        SavedImageDetailsViewHolder(
+                        ImageCardViewHolder(
+                            mode = 2,
                             generatedImageDetails = imageDetails,
                             onCardClick = {
                                 sharedViewModel.setImageDetails(it)
                                 navController.navigate(Screen.Details.route)
                             },
-                            onDelButtonClick = {
+                            onDelCardButtonClick = {
                                 selectedCard = it
                                 showDialog = true
                             },
@@ -78,7 +87,13 @@ fun DatabaseScreen(navController: NavHostController) {
                                 sharedViewModel.setImageUrl(imageUrl ?: "")
                                 navController.navigate(Screen.FullScreenImage.route)
                             },
-                            onImageLongClick = { /* Обработка долгого клика по изображению */ }
+                            onImageLongClick = {
+                                showSaveDialog = true
+                                selectedImageToSave = it.url
+                            },
+                            onSaveButtonClick = {},
+                            onDetailsButtonClick = {},
+                            onDelImageButtonClick = {}
                         )
                     }
                 }
@@ -100,6 +115,27 @@ fun DatabaseScreen(navController: NavHostController) {
             )
         }
 
+        if (showSaveDialog && selectedImageToSave != null) {
+            ShowSaveConfirmationDialog(
+                onConfirm = {
+                    viewModel.saveImageToGallery(selectedImageToSave!!)
+                    saveImageToGalleryResult?.let { result ->
+                        if (result) {
+                            Toast.makeText(
+                                context,
+                                "Image saved successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(context, "Failed to save image", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    showSaveDialog = false
+                }, onDismiss = {
+                    showSaveDialog = false
+                }
+            )
+        }
     }
-
 }
