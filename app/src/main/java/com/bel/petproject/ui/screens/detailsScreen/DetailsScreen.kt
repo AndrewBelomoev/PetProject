@@ -15,8 +15,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.bel.petproject.R
 import com.bel.petproject.ui.screens.SharedViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -33,33 +35,40 @@ fun DetailsScreen(navController: NavHostController) {
     ) {
         IconButton(
             onClick = { navController.popBackStack() },
-            modifier = Modifier
-
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back",
+                contentDescription = stringResource(id = R.string.back),
                 tint = Color.White
             )
         }
 
         sharedData?.let { data ->
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "ID: ${data.id}")
-                Text(text = "Status: ${data.status}")
-                Text(text = "Prompt: ${data.prompt}")
-                Text(text = "Negative Prompt: ${data.negativePrompt}")
-                Text(text = "Width: ${data.width}")
-                Text(text = "Height: ${data.height}")
-                Text(text = "High Resolution: ${data.highResolution}")
-                Text(text = "Seed: ${data.seed}")
-                Text(text = "Steps: ${data.steps}")
-                Text(text = "Model: ${data.model}")
+                Text(text = stringResource(id = R.string.id, data.id))
+                Text(text = stringResource(id = R.string.status, data.status ?: ""))
+                Text(text = stringResource(id = R.string.prompt, data.prompt ?: ""))
+                Text(
+                    text = stringResource(
+                        id = R.string.negative_prompt,
+                        data.negativePrompt ?: ""
+                    )
+                )
+                Text(text = stringResource(id = R.string.width, data.width ?: ""))
+                Text(text = stringResource(id = R.string.height, data.height ?: ""))
+                Text(
+                    text = stringResource(
+                        id = R.string.high_resolution,
+                        data.highResolution ?: ""
+                    )
+                )
+                Text(text = stringResource(id = R.string.seed, data.seed ?: ""))
+                Text(text = stringResource(id = R.string.steps, data.steps ?: ""))
+                Text(text = stringResource(id = R.string.model, data.model ?: ""))
             }
         } ?: run {
-            Text(text = "No data available")
+            Text(text = stringResource(id = R.string.no_data_available))
         }
-
     }
 }

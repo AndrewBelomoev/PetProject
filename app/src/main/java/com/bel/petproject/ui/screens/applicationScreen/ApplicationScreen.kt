@@ -9,24 +9,26 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.bel.petproject.R
 import com.bel.petproject.ui.navigation.BottomNavItem
 import com.bel.petproject.ui.navigation.BottomNavigationBar
 import com.bel.petproject.ui.navigation.Screen
 import com.bel.petproject.ui.navigation.SetupNavGraph
 
-private val bottomNavItems = listOf(
-    BottomNavItem("Create", Icons.Default.Create, Screen.Create.route),
-    BottomNavItem("Database", Icons.Default.AddCircle, Screen.Database.route),
-    BottomNavItem("Settings", Icons.Default.Settings, Screen.Settings.route)
-)
-
 @Composable
 fun ApplicationScreen() {
     val navController = rememberNavController()
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
+    val bottomNavItems = listOf(
+        BottomNavItem(stringResource(R.string.create_title), Icons.Default.Create, Screen.Create.route),
+        BottomNavItem(stringResource(R.string.database_title), Icons.Default.AddCircle, Screen.Database.route),
+        BottomNavItem(stringResource(R.string.settings_title), Icons.Default.Settings, Screen.Settings.route)
+    )
 
     Scaffold(
         bottomBar = {

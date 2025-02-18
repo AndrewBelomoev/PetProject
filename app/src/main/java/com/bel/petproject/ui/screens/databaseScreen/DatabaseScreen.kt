@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.bel.petproject.R
 import com.bel.petproject.model.LceState
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.ui.navigation.Screen
@@ -42,7 +43,7 @@ fun DatabaseScreen(navController: NavHostController) {
 
     val saveImageToGalleryResult by viewModel.saveImageToGalleryResult.collectAsState()
 
-    var showDialog by remember { mutableStateOf(false) }
+    var showDelDialog by remember { mutableStateOf(false) }
     var selectedCard by remember { mutableStateOf<GeneratedImageDetails?>(null) }
 
     var showSaveDialog by remember { mutableStateOf(false) }
@@ -53,15 +54,12 @@ fun DatabaseScreen(navController: NavHostController) {
     Column {
         when (lceState) {
             is LceState.Loading -> {
-                // Показываем индикатор загрузки
-
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.fillMaxSize()
                 ) {
                     CircularProgressIndicator()
                 }
-
             }
 
             is LceState.Content -> {
@@ -80,7 +78,7 @@ fun DatabaseScreen(navController: NavHostController) {
                             },
                             onDelCardButtonClick = {
                                 selectedCard = it
-                                showDialog = true
+                                showDelDialog = true
                             },
                             onImageClick = {
                                 val imageUrl = it.url
@@ -100,18 +98,21 @@ fun DatabaseScreen(navController: NavHostController) {
             }
 
             is LceState.Error -> {
-                // Показываем сообщение об ошибке
+
             }
 
         }
-        if (showDialog && selectedCard != null) {
+        if (showDelDialog && selectedCard != null) {
             ShowDeleteConfirmationDialog(
                 onConfirm = {
                     viewModel.deleteCard(selectedCard!!)
-                    Toast.makeText(context, "Удалено", Toast.LENGTH_SHORT).show()
-                    showDialog = false
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.deleted_message), Toast.LENGTH_SHORT
+                    ).show()
+                    showDelDialog = false
                 },
-                onDismiss = { showDialog = false }
+                onDismiss = { showDelDialog = false }
             )
         }
 
@@ -123,11 +124,15 @@ fun DatabaseScreen(navController: NavHostController) {
                         if (result) {
                             Toast.makeText(
                                 context,
-                                "Image saved successfully",
+                                R.string.image_saved_successfully_message,
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            Toast.makeText(context, "Failed to save image", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                R.string.failed_to_save_image_message,
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }

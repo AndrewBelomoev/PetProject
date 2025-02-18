@@ -11,4 +11,6 @@ interface ImagesLocalRepository {
 
     suspend fun deleteGeneratedImageFromDatabase(generatedImageDetails: GeneratedImageDetails): Result<Unit>
 
+    suspend fun saveImage(url: String): Boolean
+
 }

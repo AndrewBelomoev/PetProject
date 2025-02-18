@@ -86,7 +86,6 @@ fun CreateScreen(navController: NavHostController) {
             navController
         )
     }
-
 }
 
 @Preview(showBackground = true)
@@ -122,7 +121,6 @@ private fun GenerateImageButton(
             )
             sharedViewModel.setGenerationParameters(parameters)
             navController.navigate(Screen.Home.route)
-
         },
         modifier = Modifier
             .padding(22.dp)
@@ -230,7 +228,7 @@ private fun ModelSelection(model: String?, onModelChange: (String?) -> Unit) {
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = { expanded = true }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = "Показать меню")
+                        Icon(Icons.Default.ArrowDropDown, contentDescription = "Show menu")
                     }
                 }
 
@@ -268,12 +266,12 @@ private fun ImageQuantity(images: Long, onImagesChange: (Long) -> Unit) {
             IconButton(onClick = { onImagesChange(maxOf(1, images - 1)) }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = "Уменьшить"
+                    contentDescription = "Decrease"
                 )
             }
             Text(text = images.toString())
             IconButton(onClick = { onImagesChange(minOf(12, images + 1)) }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Увеличить")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Increase")
             }
         }
     }
@@ -309,7 +307,7 @@ private fun AspectRatioSelection(aspectRatio: String?, onAspectRatioChange: (Str
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = { expanded = true }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = "Показать меню")
+                        Icon(Icons.Default.ArrowDropDown, contentDescription = "Show menu")
                     }
                 }
 
