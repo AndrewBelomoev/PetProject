@@ -6,6 +6,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.bel.petproject.R
 
 @Composable
 fun ShowDeleteConfirmationDialog(
@@ -13,19 +15,19 @@ fun ShowDeleteConfirmationDialog(
     onDismiss: () -> Unit
 ) {
     AlertDialog(
-        title = { Text("Подтверждение удаления") },
-        text = { Text("Вы уверены, что хотите удалить это изображение?") },
+        title = { Text(stringResource(R.string.dialog_delete_confirmation_title)) },
+        text = { Text(stringResource(R.string.dialog_delete_confirmation_text)) },
         onDismissRequest = { onDismiss() },
         confirmButton = {
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                 onClick = { onConfirm() }
             ) {
-                Text("Удалить")
+                Text(stringResource(R.string.dialog_button_delete))
             }
         },
         dismissButton = {
-            Button(onClick = { onDismiss() }) { Text("Отмена") }
+            Button(onClick = { onDismiss() }) { Text(stringResource(R.string.dialog_button_cancel)) }
         },
     )
 }
@@ -36,19 +38,19 @@ fun ShowSaveConfirmationDialog(
     onDismiss: () -> Unit
 ) {
     AlertDialog(
-        title = { Text("Подтверждение сохранения") },
-        text = { Text("Вы уверены, что хотите сохранить это изображение?") },
+        title = { Text(stringResource(R.string.dialog_save_confirmation_title)) },
+        text = { Text(stringResource(R.string.dialog_save_confirmation_text)) },
         onDismissRequest = { onDismiss() },
         confirmButton = {
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
                 onClick = { onConfirm() }
             ) {
-                Text("Сохранить")
+                Text(stringResource(R.string.dialog_button_save))
             }
         },
         dismissButton = {
-            Button(onClick = { onDismiss() }) { Text("Отмена") }
+            Button(onClick = { onDismiss() }) { Text(stringResource(R.string.dialog_button_cancel)) }
         },
     )
 }

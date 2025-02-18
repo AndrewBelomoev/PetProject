@@ -2,17 +2,23 @@
 <resources>
     <string name="app_name" translatable="false">PetProject</string>
     <string name="prompt">Enter a text request (prompt):</string>
-    <string name="settings_screen">Settings screen</string>
-    <string name="generate_image">Generate Image</string>
-    <string name="light_theme">Light Theme</string>
-    <string name="dark_theme">Dark Theme</string>
-    <string name="system_theme">System Theme</string>
-    <string name="eng_language">ENG</string>
-    <string name="rus_language">RUS</string>
-
-    <string name="prompt2">Prompt:</string>
+    <string name="settings_screen">Settings</string>
+    <string name="theme_option">Theme</string>
+    <string name="theme_light">Light theme</string>
+    <string name="theme_dark">Dark theme</string>
+    <string name="theme_system">System theme</string>
+    <string name="language_option">Language</string>
+    <string name="language_english">ENG</string>
+    <string name="language_russian">RUS</string>
+    <string name="api_key_option">API Key</string>
+    <string name="save_api_key_button">Save API Key</string>
+    <string name="prompt_label">Prompt: %s</string>
+    <string name="negative_prompt_label">Negative Prompt: %s</string>
+    <string name="status_label">Status: %s</string>
+    <string name="details_button">Details</string>
+    <string name="save_to_database_button">Save to database</string>
+    <string name="delete_button_description">deleteButton</string>
     <string name="negative_prompt">Enter negative prompt:</string>
-    <string name="negative_prompt_label">Negative Prompt</string>
     <string name="negative_prompt_error">The length of the text should not exceed 765 characters.</string>
     <string name="choose_model">Choose a model for generation:</string>
     <string name="select_model">Select a model</string>
@@ -21,12 +27,40 @@
     <string name="select_aspect_ratio">Select an aspect ratio</string>
     <string name="high_resolution">High Resolution:</string>
     <string name="seed">Seed:</string>
-
+    <string name="generate_image">Generate image</string>
     <string name="enter_steps">Enter the number of iterations (steps):</string>
     <string name="steps_range">from 1 to 150. The default value is 20.</string>
     <string name="steps_label">Steps</string>
     <string name="steps_error">The value must be between 1 and 150. The default value of 20 is set.</string>
-
-
+    <string name="deleted_message">Deleted</string>
+    <string name="image_saved_successfully_message">Image saved successfully</string>
+    <string name="failed_to_save_image_message">Failed to save image</string>
+    <string name="create_title">Create</string>
+    <string name="database_title">Database</string>
+    <string name="settings_title">Settings</string>
+    <string name="dialog_delete_confirmation_title">Delete Confirmation</string>
+    <string name="dialog_delete_confirmation_text">Are you sure you want to delete this image?</string>
+    <string name="dialog_button_delete">Delete</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_save_confirmation_title">Save Confirmation</string>
+    <string name="dialog_save_confirmation_text">Are you sure you want to save this image?</string>
+    <string name="dialog_button_save">Save</string>
+    <string name="generation_loading_status">Status: %s</string>
+    <string name="network_error_check">Check your internet connection</string>
+    <string name="generic_error">Error: %s</string>
+    <string name="retry_button">Retry</string>
+    <string name="image_deleted_message">Image deleted</string>
+    <string name="image_saved_message">Image saved successfully</string>
+    <string name="image_save_failed_message">Failed to save image</string>
+    <string name="network_timeout_error">timeout</string>
+    <string name="network_unable_to_resolve_host_error">Unable to resolve host</string>
+    <string name="back">Back</string>
+    <string name="no_data_available">No data available</string>
+    <string name="id">ID: %s</string>
+    <string name="status">Status: %s</string>
+    <string name="width">Width: %s</string>
+    <string name="height">Height: %s</string>
+    <string name="steps">Steps: %s</string>
+    <string name="model">Model: %s</string>
 
 </resources>

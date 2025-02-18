@@ -32,12 +32,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.bel.petproject.R
 import com.bel.petproject.models.imageCard.GeneratedImageDetails
 import com.bel.petproject.models.imageCard.Image
 
@@ -67,17 +69,26 @@ fun ImageCardViewHolder(
 
             if (mode == 1) {
                 Text(
-                    text = "Prompt: ${generatedImageDetails.prompt}",
+                    text = stringResource(
+                        R.string.prompt_label,
+                        generatedImageDetails.prompt ?: ""
+                    ),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "Negative Prompt: ${generatedImageDetails.negativePrompt}",
+                    text = stringResource(
+                        R.string.negative_prompt_label,
+                        generatedImageDetails.negativePrompt ?: ""
+                    ),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "Status: ${generatedImageDetails.status}",
+                    text = stringResource(
+                        R.string.status_label,
+                        generatedImageDetails.status ?: ""
+                    ),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -91,14 +102,14 @@ fun ImageCardViewHolder(
                             onDetailsButtonClick(generatedImageDetails)
                         },
                     ) {
-                        Text(text = "Details")
+                        Text(text = stringResource(R.string.details_button))
                     }
                     Button(
                         onClick = { onSaveButtonClick(generatedImageDetails) },
                     ) {
                         Icon(imageVector = Icons.Default.AddCircle, contentDescription = "")
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Save to database")
+                        Text(text = stringResource(R.string.save_to_database_button))
                     }
                 }
 
@@ -144,7 +155,7 @@ fun ImageCardViewHolder(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Filled.Delete,
-                                        contentDescription = "deleteButton"
+                                        contentDescription = stringResource(R.string.delete_button_description)
                                     )
                                 }
                             }
@@ -156,13 +167,19 @@ fun ImageCardViewHolder(
                 Row {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Prompt: ${generatedImageDetails.prompt}",
+                            text = stringResource(
+                                R.string.prompt_label,
+                                generatedImageDetails.prompt ?: ""
+                            ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
                     IconButton(onClick = { onDelCardButtonClick(generatedImageDetails) }) {
-                        Icon(imageVector = Icons.Filled.Delete, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = stringResource(R.string.delete_button_description)
+                        )
                     }
 
                 }

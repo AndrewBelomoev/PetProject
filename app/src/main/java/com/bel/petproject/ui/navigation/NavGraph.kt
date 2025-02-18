@@ -26,7 +26,7 @@ fun SetupNavGraph(
             DetailsScreen(navController = navController)
         }
         composable(route = Screen.Settings.route) {
-            SettingsScreen(navController = navController)
+            SettingsScreen()
         }
         composable(route = Screen.Database.route) {
             DatabaseScreen(navController = navController)

@@ -1,4 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name" translatable="false">PetProject</string>
+    <string name="prompt">Введите текстовый запрос (промт):</string>
+    <string name="settings_screen">Настройки</string>
+    <string name="theme_option">Тема</string>
+    <string name="theme_light">Светлая тема</string>
+    <string name="theme_dark">Темная тема</string>
+    <string name="theme_system">Системная тема</string>
+    <string name="language_option">Язык</string>
+    <string name="language_english">Английский (ENG)</string>
+    <string name="language_russian">Русский (RUS)</string>
+    <string name="api_key_option">API ключ</string>
+    <string name="save_api_key_button">Сохранить API ключ</string>
+    <string name="prompt_label">Промт: %s</string>
+    <string name="negative_prompt_label">Негативный промт: %s</string>
+    <string name="status_label">Статус: %s</string>
+    <string name="details_button">Подробнее</string>
+    <string name="save_to_database_button">Сохранить в базу данных</string>
+    <string name="delete_button_description">Кнопка удаления</string>
+    <string name="negative_prompt">Введите негативный промт:</string>
+    <string name="negative_prompt_error">Длина текста не должна превышать 765 символов.</string>
+    <string name="choose_model">Выберите модель для генерации:</string>
+    <string name="select_model">Выберите модель</string>
+    <string name="number_of_images">Количество изображений:</string>
+    <string name="choose_aspect_ratio">Выберите соотношение сторон:</string>
+    <string name="select_aspect_ratio">Выберите соотношение сторон</string>
+    <string name="high_resolution">Высокое разрешение:</string>
+    <string name="seed">Seed:</string>
+    <string name="generate_image">Сгенерировать изображение</string>
+    <string name="enter_steps">Введите количество итераций (шагов):</string>
+    <string name="steps_range">от 1 до 150. Значение по умолчанию - 20.</string>
+    <string name="steps_label">Шаги</string>
+    <string name="steps_error">Значение должно быть от 1 до 150. Установлено значение по умолчанию - 20.</string>
+    <string name="deleted_message">Удалено</string>
+    <string name="image_saved_successfully_message">Изображение успешно сохранено</string>
+    <string name="failed_to_save_image_message">Не удалось сохранить изображение</string>
+    <string name="create_title">Создать</string>
+    <string name="database_title">База данных</string>
+    <string name="settings_title">Настройки</string>
+    <string name="dialog_delete_confirmation_title">Подтверждение удаления</string>
+    <string name="dialog_delete_confirmation_text">Вы уверены, что хотите удалить это изображение?</string>
+    <string name="dialog_button_delete">Удалить</string>
+    <string name="dialog_button_cancel">Отмена</string>
+    <string name="dialog_save_confirmation_title">Подтверждение сохранения</string>
+    <string name="dialog_save_confirmation_text">Вы уверены, что хотите сохранить это изображение?</string>
+    <string name="dialog_button_save">Сохранить</string>
+    <string name="generation_loading_status">Статус: %s</string>
+    <string name="network_error_check">Проверьте соединение с интернетом</string>
+    <string name="generic_error">Ошибка: %s</string>
+    <string name="retry_button">Повторить</string>
+    <string name="image_deleted_message">Изображение удалено</string>
+    <string name="image_saved_message">Изображение успешно сохранено</string>
+    <string name="image_save_failed_message">Не удалось сохранить изображение</string>
+    <string name="network_timeout_error">превышено время ожидания</string>
+    <string name="network_unable_to_resolve_host_error">Не удалось разрешить хост</string>
+    <string name="back">Назад</string>
+    <string name="no_data_available">Данные отсутствуют</string>
+    <string name="id">ID: %s</string>
+    <string name="status">Статус: %s</string>
+    <string name="width">Ширина: %s</string>
+    <string name="height">Высота: %s</string>
+    <string name="steps">Шаги генерации: %s</string>
+    <string name="model">Модель генерации: %s</string>
 </resources>

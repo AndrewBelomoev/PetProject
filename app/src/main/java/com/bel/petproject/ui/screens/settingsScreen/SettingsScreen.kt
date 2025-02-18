@@ -12,12 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -33,8 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.bel.petproject.R
 import com.bel.petproject.data.service.PreferencesServiceImpl
 import com.bel.petproject.models.settings.Localization
@@ -44,7 +40,7 @@ import com.bel.petproject.service.ThemeModeService
 import org.koin.androidx.compose.getKoin
 
 @Composable
-fun SettingsScreen(navController: NavHostController) {
+fun SettingsScreen() {
     val themeModeService: ThemeModeService = getKoin().get()
     val localizationService: LocalizationService = getKoin().get()
     val preferencesService: PreferencesServiceImpl = getKoin().get()
@@ -73,22 +69,22 @@ fun SettingsScreen(navController: NavHostController) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "Theme",
+                    text = stringResource(R.string.theme_option),
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 ThemeOption(
-                    text = "Light theme",
+                    text = stringResource(R.string.theme_light),
                     selected = themeModeService.themeMode == ThemeMode.LIGHT,
                     onClick = { themeModeService.themeMode = ThemeMode.LIGHT }
                 )
                 ThemeOption(
-                    text = "Dark Theme",
+                    text = stringResource(R.string.theme_dark),
                     selected = themeModeService.themeMode == ThemeMode.DARK,
                     onClick = { themeModeService.themeMode = ThemeMode.DARK }
                 )
                 ThemeOption(
-                    text = "System Theme",
+                    text = stringResource(R.string.theme_system),
                     selected = themeModeService.themeMode == ThemeMode.SYSTEM,
                     onClick = { themeModeService.themeMode = ThemeMode.SYSTEM }
                 )
@@ -107,13 +103,13 @@ fun SettingsScreen(navController: NavHostController) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "Language",
+                    text = stringResource(R.string.language_option),
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Row {
                     LanguageOption(
-                        text = "ENG",
+                        text = stringResource(R.string.language_english),
                         selected = localizationService.localization == Localization.ENGLISH,
                         onClick = {
                             localizationService.localization = Localization.ENGLISH
@@ -122,7 +118,7 @@ fun SettingsScreen(navController: NavHostController) {
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     LanguageOption(
-                        text = "RUS",
+                        text = stringResource(R.string.language_russian),
                         selected = localizationService.localization == Localization.RUSSIAN,
                         onClick = {
                             localizationService.localization = Localization.RUSSIAN
@@ -145,7 +141,7 @@ fun SettingsScreen(navController: NavHostController) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "API Key",
+                    text = stringResource(R.string.api_key_option),
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -158,13 +154,12 @@ fun SettingsScreen(navController: NavHostController) {
                 )
 
                 Button(onClick = { preferencesService.apiKey = apiKey }) {
-                    Text(text = "Save API Key")
+                    Text(text = stringResource(R.string.save_api_key_button))
                 }
             }
         }
     }
 }
-
 
 @Composable
 private fun ThemeOption(text: String, selected: Boolean, onClick: () -> Unit) {
@@ -209,6 +204,6 @@ private fun LanguageOption(text: String, selected: Boolean, onClick: () -> Unit)
 @Preview
 @Composable
 private fun SettingsScreenPreview() {
-    SettingsScreen(navController = rememberNavController())
+    SettingsScreen()
 }
 

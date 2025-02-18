@@ -27,11 +27,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bel.petproject.R
 import com.bel.petproject.model.LceState
 import com.bel.petproject.models.imageCard.Image
 import com.bel.petproject.ui.navigation.Screen
@@ -61,19 +63,21 @@ fun HomeScreen(navController: NavHostController) {
     var selectedImageToSave by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        // Проверяем, есть ли уже сгенерированные изображения
         if (generatedImageDetails !is LceState.Content) {
             val request = generationParameters!!
-            Log.d("generationParameters1", request.toString())
+            Log.d("generationParameters", request.toString())
             viewModel.createNewImages(request = request)
         } else {
-            Log.d("generationParameters1", "Images already generated, skipping generation.")
+            Log.d("generationParameters", "Images already generated, skipping generation.")
         }
     }
 
     when (val state = generatedImageDetails) {
         is LceState.Loading -> {
-            Text(text = "Status: $generationStatus", modifier = Modifier.padding(20.dp))
+            Text(
+                text = stringResource(R.string.generation_loading_status, generationStatus),
+                modifier = Modifier.padding(20.dp)
+            )
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxSize()
@@ -89,7 +93,7 @@ fun HomeScreen(navController: NavHostController) {
                     generatedImageDetails = state.data,
                     onCardClick = {
                         sharedViewModel.setImageDetails(state.data)
-                        Log.d("Send data", "data: ${state.data}")
+                        Log.d("DataH", "data: ${state.data}")
                         navController.navigate(Screen.Details.route)
                     },
                     onImageClick = {
@@ -103,7 +107,8 @@ fun HomeScreen(navController: NavHostController) {
                     },
                     onSaveButtonClick = {
                         viewModel.saveImageCard(it)
-                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.image_saved_message, Toast.LENGTH_SHORT)
+                            .show()
                     },
                     onDetailsButtonClick = {
                         sharedViewModel.setImageDetails(state.data)
@@ -123,9 +128,8 @@ fun HomeScreen(navController: NavHostController) {
 
         is LceState.Error -> {
             val isNetworkError =
-                state.throwable.message?.contains("timeout") == true || state.throwable.message?.contains(
-                    "Unable to resolve host"
-                ) == true
+                state.throwable.message?.contains(context.getString(R.string.network_timeout_error)) == true ||
+                        state.throwable.message?.contains(context.getString(R.string.network_unable_to_resolve_host_error)) == true
 
             Box(
                 contentAlignment = Alignment.Center,
@@ -138,13 +142,16 @@ fun HomeScreen(navController: NavHostController) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Warning,
-                        contentDescription = "Error Icon",
+                        contentDescription = "Error icon",
                         tint = Color.Red,
                         modifier = Modifier.size(64.dp)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = if (isNetworkError) "Проверьте соединение с интернетом" else "Error: ${state.throwable.message}",
+                        text = if (isNetworkError) stringResource(R.string.network_error_check) else stringResource(
+                            R.string.generic_error,
+                            state.throwable.message.toString()
+                        ),
                         color = Color.Red,
                         textAlign = TextAlign.Center
                     )
@@ -155,7 +162,7 @@ fun HomeScreen(navController: NavHostController) {
                             viewModel.createNewImages(request = request)
                         }
                     }) {
-                        Text(text = "Повторить")
+                        Text(text = stringResource(R.string.retry_button))
                     }
                 }
             }
@@ -166,7 +173,7 @@ fun HomeScreen(navController: NavHostController) {
         ShowDeleteConfirmationDialog(
             onConfirm = {
                 viewModel.deleteImage(selectedImageToDel!!)
-                Toast.makeText(context, "Изображение удалено", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.image_deleted_message, Toast.LENGTH_SHORT).show()
                 showDelDialog = false
             },
             onDismiss = { showDelDialog = false }
@@ -180,11 +187,15 @@ fun HomeScreen(navController: NavHostController) {
                     if (result) {
                         Toast.makeText(
                             context,
-                            "Image saved successfully",
+                            R.string.image_saved_message,
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        Toast.makeText(context, "Failed to save image", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            context,
+                            R.string.image_save_failed_message,
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }

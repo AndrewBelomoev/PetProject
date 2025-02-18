@@ -1,6 +1,5 @@
 package com.bel.petproject.ui.screens.homeScreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bel.petproject.model.LceState
@@ -27,7 +26,7 @@ class HomeViewModel(
         MutableStateFlow<LceState<GeneratedImageDetails>>(LceState.Loading)
     val generatedImageDetails: StateFlow<LceState<GeneratedImageDetails>> = _generatedImageDetails
 
-    private val _generationStatus = MutableStateFlow<String>("")
+    private val _generationStatus = MutableStateFlow("")
     val generationStatus: StateFlow<String> get() = _generationStatus
 
     private val _saveImageToGalleryResult = MutableStateFlow<Boolean?>(null)
@@ -54,7 +53,6 @@ class HomeViewModel(
                         _generatedImageDetails.value = LceState.Content(generatedImageDetails)
                         return@launch
                     } else {
-                        Log.d("WaitData1", "Ждем ещё 5 секунд")
                         _generationStatus.value = generatedImageDetails.status.toString()
                         delay(5000)
 
